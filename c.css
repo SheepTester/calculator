@@ -1,3 +1,8 @@
 body {
   font-family: 'Roboto',sans-serif;
 }
+code {
+  padding: 5px;
+  background: lightgrey;
+  border-radius: 5px;
+}
