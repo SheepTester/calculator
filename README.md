@@ -1,2 +1,3 @@
-# solve4x
-Solves a given equation for X.
+# Calculators
+1. Solves a given equation for X.
+1. Solves a given expression
