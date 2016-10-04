@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Convert between bases</title>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        font-family: serif;
+      }
+      code {
+        background: rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.1);
+      }
+      input, button {
+        font-family: inherit;
+        font-size: inherit;
+      }
+      ul {
+        margin: 0;
+      }
+      #n {
+        width: 80px;
+      }
+      #b1, #b2 {
+        width: 50px;
+      }
+      input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <input placeholder="Number" id="n"/> in base <input type="number" placeholder="Base" value=16 min=2 max=36 id="b1"/> equals <span>0</span> in base <input type="number" placeholder="Base" value=10 min=2 max=36 id="b2"/>.<button onclick="document.querySelector('span').innerHTML=base(document.querySelector('#n').value,document.querySelector('#b1').value,document.querySelector('#b2').value)">Convert</button><br>
+    Please note that <em>decimals don't work</em> so try not to do any fun stuff with decimals yet.<br>
+    Found a glitch? Yell at me in real life or contact me on my <a href="https://scratch.mit.edu/users/Sheep_maker/">Scratch profile</a>.
+    
+    <script src="../sheep.js"></script>
+    <script src="base.js"></script>
+  </body>
+</html>

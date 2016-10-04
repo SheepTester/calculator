@@ -14,7 +14,13 @@ function calc(eq) {
         elem.push([eq[i],""]); // create new element with the operator
         negativeYet=false;
       } else if (eq[i]=="-"&&negativeYet) { // if we're dealing with a subtraction sign
-        elem.push(["+","-"]); // new addition element starting with a negative
+        if (/[a-zA-Z]/.test(eq[i+1])) {
+          //elem[elem.length-1][1]=(elem[elem.length-1][1]=="-"?"":"-")+elem[elem.length-1][1];
+          elem.push(["+","-1"]); // new multiplication element
+          elem.push(["*",""]); // new multiplication element
+        } else {
+          elem.push(["+","-"]); // new addition element starting with a negative
+        }
         if (eq[i]=="-"&&eq[i+1]=="-") {
           i++;
           elem[elem.length-1][1]="";
@@ -23,6 +29,9 @@ function calc(eq) {
         elem[elem.length-1][1]+=eq[i]; // add to the current number
         if (!negativeYet) {
           negativeYet=true; // this prevents numbers like "-4-4" and detects a subtraction sign
+        }
+        if (/[a-zA-Z]/.test(eq[i+1])&&/[0-9\.\-]/.test(eq[i])) {
+          elem.push(["*",""]); // new multiplication element
         }
       }
     } else {
