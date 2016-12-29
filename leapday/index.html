@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leap day offset calculator</title>
+    <meta charset="UTF-8">
+    <style>
+      input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+      }
+      input, select {
+        border: none;
+      }
+      input:hover, select:hover {
+        background: rgba(0,0,0,0.05);
+      }
+      #hi {
+        margin: 0;
+        color: transparent;
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    Enter your birthday:
+    <input id="date" type="number" value="1"/>
+    <select id="month">
+      <option value="0">jan</option>
+      <option value="1">feb</option>
+      <option value="2">mar</option>
+      <option value="3">apr</option>
+      <option value="4">may</option>
+      <option value="5">jun</option>
+      <option value="6">jul</option>
+      <option value="7">aug</option>
+      <option value="8">sep</option>
+      <option value="9">oct</option>
+      <option value="10">nov</option>
+      <option value="11">dec</option>
+    </select>
+    '<input id="year" type="number" value="16"/> (your birthday isn't stored anywhere)
+    <p id="hi"></p>
+
+    <script src="../sheep.js"></script>
+    <script>
+updateWidth('date');
+updateWidth('year');
+document.querySelector('#date').onkeyup=function(){
+  var val=Number(document.querySelector('#date').value);
+  if (val>31) document.querySelector('#date').value="31";
+  else if (val<1) document.querySelector('#date').value="1";
+  updateWidth('date');
+}
+document.querySelector('#year').onkeyup=function(){
+  updateWidth('year');
+}
+function updateWidth(id) {
+  document.querySelector('#hi').innerHTML=document.querySelector('#'+id).value;
+  document.querySelector('#'+id).style.width=(document.querySelector('#hi').getBoundingClientRect().width+5)+"px";
+}
+function calculate() {
+  function isLY(y) {
+    return (y%4==0&&y%100!=0)||y%400==0;
+  }
+  var d=Number(document.querySelector('#date').value),
+  m=Number(document.querySelector('#month').value)+1,
+  y=Number(document.querySelector('#year').value);
+  if (y<100) {
+    if (y<=new Date().getFullYear()-2000) y+=2000;
+    else y+=1900;
+  }
+  if (isLY(y)) {notdoneyetlol;}
+  console.log(d);
+  console.log(m);
+  console.log(y);
+}
+    </script>
+  </body>
+</html>
