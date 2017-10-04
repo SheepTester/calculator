@@ -19,9 +19,13 @@
       }
       input, select {
         border: none;
+        border-radius: 1px;
       }
       input:hover, select:hover {
         background: rgba(0,0,0,0.05);
+      }
+      input:focus, select:focus {
+        box-shadow: 0 0 0 2px rgba(0,171,213,0.4);
       }
       #hi {
         margin: 0;
@@ -31,10 +35,10 @@
     </style>
   </head>
   <body>
-    Enter your birthday:
+    <p>Enter your birthday:
     <input id="date" type="number" value="1"/>
     <select id="month">
-      <option value="0">jan</option>
+      <option value="0" selected>jan</option>
       <option value="1">feb</option>
       <option value="2">mar</option>
       <option value="3">apr</option>
@@ -47,42 +51,78 @@
       <option value="10">nov</option>
       <option value="11">dec</option>
     </select>
-    '<input id="year" type="number" value="16"/> (your birthday isn't stored anywhere)
+    <input id="year" type="number" value="16"/> (your birthday isn't stored anywhere)</p>
+    <p>Year of celebration: <input type="number" id="now"></p>
+    <p id='result'></p>
     <p id="hi"></p>
 
-    <script src="../sheep.js"></script>
+    <script src="../../sheep.js"></script>
     <script>
+document.querySelector('#now').value=new Date().getFullYear();
 updateWidth('date');
 updateWidth('year');
-document.querySelector('#date').onkeyup=function(){
+updateWidth('now');
+document.querySelector('#date').onchange=function(){
   var val=Number(document.querySelector('#date').value);
   if (val>31) document.querySelector('#date').value="31";
   else if (val<1) document.querySelector('#date').value="1";
   updateWidth('date');
 }
+var change=e=>newbday(),s=document.querySelectorAll('input');
+for (var i=0;i<s.length;i++) s[i].addEventListener("change",change,false);
+document.querySelector('#month').addEventListener("change",change,false);
+document.querySelector('#date').onkeyup=function(){
+  updateWidth('date');
+}
 document.querySelector('#year').onkeyup=function(){
   updateWidth('year');
+}
+document.querySelector('#now').onkeyup=function(){
+  updateWidth('now');
 }
 function updateWidth(id) {
   document.querySelector('#hi').innerHTML=document.querySelector('#'+id).value;
   document.querySelector('#'+id).style.width=(document.querySelector('#hi').getBoundingClientRect().width+5)+"px";
 }
+function isLY(y) {
+  return (y%4==0&&y%100!=0)||y%400==0;
+}
 function calculate() {
-  function isLY(y) {
-    return (y%4==0&&y%100!=0)||y%400==0;
-  }
-  var d=Number(document.querySelector('#date').value),
+  var today=new Date(),
+  d=Number(document.querySelector('#date').value),
   m=Number(document.querySelector('#month').value)+1,
-  y=Number(document.querySelector('#year').value);
+  y=Number(document.querySelector('#year').value),
+  n=Number(document.querySelector('#now').value),
+  offset=0; // time difference caused by early year ends and leap days
   if (y<100) {
-    if (y<=new Date().getFullYear()-2000) y+=2000;
+    if (y<=today.getFullYear()-2000) y+=2000;
     else y+=1900;
   }
-  if (isLY(y)) {notdoneyetlol;}
-  console.log(d);
-  console.log(m);
-  console.log(y);
+  if (n<100) {
+    if (n<=today.getFullYear()-2000) n+=2000;
+    else n+=1900;
+  }
+  /*if (y===n) return 'No difference.';
+  else*/ if (y>n) return 'You hadn\'t existed yet.';
+  else if (d!==29||m!==2) {
+    if (m<3) y--,n--;
+    for (var i=y+1;i<=n;i++) {
+      offset-=2500;
+      if (isLY(i)) offset+=10000;
+    }
+    return {o:-offset/10000,y:n,m:m,d:d};
+  }
+  else return 'happy new year';
 }
+function newbday() {
+  var r=calculate(),
+  res=document.querySelector('#result'),
+  monthlengths=[31,31,isLY(r.y)?29:28,31,30,31,30,31,31,30,31,30,31];
+  if (typeof r==='string') res.textContent=r;
+  else res.textContent=`Your birthday starts on ${r.o<0?(r.d===1?monthlengths[r.m-1]:r.d-1):r.d}/${r.o<0&&r.d===1?(r.m===1?r.m+11:r.m-1):r.m}/${/*r.o<0&&r.d===1&&r.m===1?r.y-1:*/r.y}`;
+  if (typeof r==='object') SHEEP.notify(JSON.stringify(r));
+}
+document.body.onload=newbday;
     </script>
   </body>
 </html>

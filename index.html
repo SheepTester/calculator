@@ -1,16 +1,72 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Solve for X</title>
+    <title>Calculator</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="c.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <meta name="description" content="Doesn't solve for x. Sorry."/>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        margin: 0;
+        line-height: 1;
+        font-size: 0;
+        font-family: sans-serif;
+        background-image: linear-gradient(130deg,#fea540,#FA709A);
+      }
+      #content {
+        position: fixed;
+        margin: auto;
+        top: 50px;
+        left: 50px;
+        right: 50px;
+        bottom: 50px;
+        max-width: 700px;
+        max-height: 500px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      }
+      .equation {
+        margin: 10px;
+        height: 40px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        position: relative;
+      }
+      .remove {
+        vertical-align: top;
+        border: none;
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+      }
+      .input {
+        vertical-align: top;
+        border: none;
+        display: inline-block;
+        font-size: 30px;
+        height: 40px;
+        box-sizing: border-box;
+        padding: 5px;
+        position: absolute;
+        left: 40px;
+        right: 0;
+      }
+    </style>
   </head>
   <body>
-    Go to the Javascript console and then put in <code>calc("EQUATION");</code><br>
-    <a href="calc/">Solve for a variable-less expression instead</a>
-    
+    <div id="content">
+      <div class="equation">
+        <button type="button" class="remove"></button>
+        <input type="text" class="input">
+        <span class='output'></span>
+      </div>
+    </div>
+
     <script src="../sheep.js"></script>
-    <script src="j.js"></script>
+    <script></script>
   </body>
+  <!-- MADE BY SEAN -->
 </html>
