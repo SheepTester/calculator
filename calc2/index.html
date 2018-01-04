@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Expression calculator</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="solves for an expression"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../../sheep2.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="../../sheep2.js" charset="utf-8"></script>
+    <script src="calculations.js" charset="utf-8"></script>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        margin: 0;
+        line-height: 1;
+        font-size: 0;
+        font-family: 'Open Sans', sans-serif;
+        background-image: linear-gradient(130deg,#fea540,#FA709A);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #container {
+        text-align: center;
+      }
+      #container input {
+        font-size: 24px;
+        background: none;
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 2px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        border: none;
+        padding: 5px;
+        width: 50px;
+        text-align: center;
+        min-width: 50px;
+        max-width: calc(100vw - 30px);
+        color: rgba(0,0,0,0.5);
+        cursor: pointer;
+        transition: background-color .2s, color .2s;
+      }
+      #container input:focus {
+        outline: none;
+        background-color: rgba(255,255,255,0.8);
+        color: rgba(0,0,0,0.7);
+        cursor: auto;
+      }
+      #container span {
+        display: inline-block;
+        font-size: 20px;
+        margin-top: 5px;
+        color: rgba(0, 0, 0, 0.8);
+      }
+      #container span::before {
+        content: "=";
+        opacity: 0.5;
+        margin-right: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <input type="text" id="expression" autofocus><br>
+      <span id="result">0</span>
+    </div>
+
+    <script>
+let expression = document.querySelector("#expression"),
+result = document.querySelector("#result");
+expression.addEventListener("input", e => {
+  expression.style.width = SHEEP.textWidth(expression.value, expression) + "px";
+  result.textContent = evaluate(expression.value);
+}, false);
+    </script>
+  </body>
+  <!-- MADE BY SEAN -->
+</html>
